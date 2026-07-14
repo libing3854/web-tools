@@ -10,3 +10,8 @@
 
 本项目内容用于传统文化学习与个人思考，不替代医疗、法律或投资等专业意见。
 
+## 开源组件
+
+- 首页黄历使用 [6tail/lunar-javascript](https://github.com/6tail/lunar-javascript) 1.7.7，采用 MIT License。
+- 项目内固定保存浏览器版本：`vendor/lunar.js`。
+- 完整授权文本：`vendor/lunar-javascript.LICENSE.txt`。
