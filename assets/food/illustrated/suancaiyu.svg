@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="720" viewBox="0 0 960 720">
+  <defs>
+    <radialGradient id="bg" cx="48%" cy="38%" r="78%"><stop stop-color="#5c5a22"/><stop offset="1" stop-color="#14150d"/></radialGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".18"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#000" flood-opacity=".38"/></filter>
+  </defs>
+  <rect width="960" height="720" fill="url(#bg)"/>
+  <circle cx="128" cy="110" r="76" fill="#fff" opacity=".025"/><circle cx="850" cy="130" r="120" fill="#fff" opacity=".025"/>
+  <path d="M0 570 Q240 520 480 565 T960 555 V720 H0Z" fill="#09070d" opacity=".28"/>
+  <g filter="url(#shadow)" >
+    <path d="M200 330 Q480 590 760 330 L690 530 Q480 635 270 530Z" fill="#2b3334"/>
+    <ellipse cx="480" cy="340" rx="280" ry="132" fill="#d5b847"/>
+    <g fill="#f6eee0"><path d="M275 345q85-95 170 0q-85 65-170 0z"/><path d="M430 295q90-85 175 10q-90 60-175-10z"/><path d="M510 390q85-90 170 0q-85 65-170 0z"/></g>
+    <g fill="#657b3e"><path d="M330 410q35-80 70 0z"/><path d="M575 310q35-80 70 0z"/></g>
+    <g fill="#d84035"><circle cx="390" cy="315" r="13"/><circle cx="560" cy="360" r="13"/><circle cx="650" cy="330" r="13"/></g></g>
+  <g font-family="'Noto Sans SC','PingFang SC',sans-serif" text-anchor="middle">
+    <text x="480" y="620" fill="#ffd23f" font-size="42" font-weight="800" letter-spacing="5">酸菜鱼</text>
+    <text x="480" y="665" fill="#fff" opacity=".56" font-size="23" letter-spacing="2">酸辣开胃 · 鱼片嫩滑</text>
+  </g>
+  <rect x="18" y="18" width="924" height="684" rx="30" fill="none" stroke="#fff" opacity=".05"/>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="720" viewBox="0 0 960 720">
+  <defs>
+    <radialGradient id="bg" cx="48%" cy="38%" r="78%"><stop stop-color="#285c46"/><stop offset="1" stop-color="#101b18"/></radialGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".18"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#000" flood-opacity=".38"/></filter>
+  </defs>
+  <rect width="960" height="720" fill="url(#bg)"/>
+  <circle cx="128" cy="110" r="76" fill="#fff" opacity=".025"/><circle cx="850" cy="130" r="120" fill="#fff" opacity=".025"/>
+  <path d="M0 570 Q240 520 480 565 T960 555 V720 H0Z" fill="#09070d" opacity=".28"/>
+  <g filter="url(#shadow)" >
+    <path d="M220 345 Q480 600 740 345 L680 520 Q480 620 280 520Z" fill="#e8e1d3"/>
+    <g><circle cx="350" cy="340" r="78" fill="#62ae58"/><circle cx="500" cy="320" r="90" fill="#7bc565"/><circle cx="620" cy="365" r="70" fill="#519e55"/></g>
+    <g fill="#e84e47"><circle cx="360" cy="400" r="34"/><circle cx="565" cy="390" r="36"/></g>
+    <g fill="#f2d06b"><circle cx="455" cy="410" r="42"/><circle cx="455" cy="410" r="20" fill="#f7a928"/></g>
+    <g fill="#d5a56b"><rect x="300" y="305" width="85" height="42" rx="15" transform="rotate(-18 300 305)"/><rect x="540" y="290" width="90" height="42" rx="15" transform="rotate(16 540 290)"/></g></g>
+  <g font-family="'Noto Sans SC','PingFang SC',sans-serif" text-anchor="middle">
+    <text x="480" y="620" fill="#ffd23f" font-size="42" font-weight="800" letter-spacing="5">轻食沙拉</text>
+    <text x="480" y="665" fill="#fff" opacity=".56" font-size="23" letter-spacing="2">清爽 · 低负担</text>
+  </g>
+  <rect x="18" y="18" width="924" height="684" rx="30" fill="none" stroke="#fff" opacity=".05"/>
+</svg>

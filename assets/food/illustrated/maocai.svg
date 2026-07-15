@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="720" viewBox="0 0 960 720">
+  <defs>
+    <radialGradient id="bg" cx="48%" cy="38%" r="78%"><stop stop-color="#742824"/><stop offset="1" stop-color="#1c0c12"/></radialGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".18"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#000" flood-opacity=".38"/></filter>
+  </defs>
+  <rect width="960" height="720" fill="url(#bg)"/>
+  <circle cx="128" cy="110" r="76" fill="#fff" opacity=".025"/><circle cx="850" cy="130" r="120" fill="#fff" opacity=".025"/>
+  <path d="M0 570 Q240 520 480 565 T960 555 V720 H0Z" fill="#09070d" opacity=".28"/>
+  <g filter="url(#shadow)" >
+    <path d="M215 335 Q480 585 745 335 L680 520 Q480 625 280 520Z" fill="#25212c"/>
+    <ellipse cx="480" cy="345" rx="265" ry="130" fill="#b82e24"/>
+    <g><circle cx="345" cy="330" r="54" fill="#6ab04c"/><circle cx="590" cy="322" r="52" fill="#73b45a"/><circle cx="475" cy="400" r="48" fill="#d9b66f"/><circle cx="420" cy="300" r="42" fill="#8b4f31"/><circle cx="535" cy="285" r="40" fill="#f0d398"/></g>
+    <g fill="none" stroke="#f3d1a3" stroke-width="18" stroke-linecap="round"><path d="M285 385q55-55 110 0"/><path d="M555 405q55-60 115-5"/></g>
+    <g fill="#efc84b"><circle cx="380" cy="365" r="9"/><circle cx="525" cy="350" r="9"/><circle cx="620" cy="365" r="9"/></g></g>
+  <g font-family="'Noto Sans SC','PingFang SC',sans-serif" text-anchor="middle">
+    <text x="480" y="620" fill="#ffd23f" font-size="42" font-weight="800" letter-spacing="5">冒菜</text>
+    <text x="480" y="665" fill="#fff" opacity=".56" font-size="23" letter-spacing="2">一人食火锅</text>
+  </g>
+  <rect x="18" y="18" width="924" height="684" rx="30" fill="none" stroke="#fff" opacity=".05"/>
+</svg>
