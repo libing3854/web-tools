@@ -1106,9 +1106,10 @@ async function spinForFood() {
   if (isEgg) {
     const eggTypes = [
       { type:'steal', banner:'steal-banner', bannerText:'偷吃他人外卖彩蛋！',
+        intro:'外卖架上发现了目标：\n· 张总的奶茶\n· Lisa的沙拉\n· 某不知名同事的炸鸡',
         results:[
           { emoji:'🕵️', title:'偷吃他人外卖', desc:'行动代号：饿狼传说。\n\n你悄悄观察起同事的午餐，\n良心正在疯狂敲门……' },
-          { emoji:'🕵️', title:'偷吃他人外卖', desc:'外卖架上发现了目标：\n· 张总的奶茶\n· Lisa的沙拉\n· 某不知名同事的炸鸡\n\n但是，头顶有监控。' },
+          { emoji:'🕵️', title:'偷吃他人外卖', desc:'但是，头顶有监控。' },
           { emoji:'🕵️', title:'偷吃他人外卖', desc:'你刚伸手拿起别人的外卖，\n失主就从电梯口出现了……\n\n现在放下还来得及。' },
         ]},
       { type:'fasting', banner:'fasting-banner', bannerText:'今天不吃彩蛋！',
@@ -1124,6 +1125,7 @@ async function spinForFood() {
     ];
     const chosen = eggTypes[Math.floor(Math.random() * eggTypes.length)];
     eggResult = chosen.results[Math.floor(Math.random() * chosen.results.length)];
+    if (chosen.intro) eggResult.desc = chosen.intro + '\n\n' + eggResult.desc;
     eggResult._banner = chosen.banner;
     eggResult._bannerText = chosen.bannerText;
     eggResult._type = chosen.type;
