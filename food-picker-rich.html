@@ -115,7 +115,6 @@
     box-shadow: 0 0 50px rgba(255,210,63,0.2), inset 0 0 30px rgba(255,210,63,0.08);
   }
   .spin-btn:active { transform: scale(0.96); }
-  .spin-btn.spinning { animation: spinPulse 0.1s ease infinite alternate; }
   .spin-btn.egg-glow {
     border-color: var(--pink) !important;
     box-shadow: 0 0 60px rgba(255,77,109,0.35), inset 0 0 40px rgba(255,77,109,0.1) !important;
@@ -584,7 +583,6 @@
 
   /* ===== ANIMATIONS ===== */
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes spinPulse { from { transform: scale(1); } to { transform: scale(1.04); } }
   @keyframes orbitSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
   @keyframes breathe { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
   @keyframes confettiFall { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
@@ -983,7 +981,22 @@ function closeCollection(e) {
 }
 
 /* ========== SPIN ========== */
-function spinForFood() {
+function prepareSpinFrames(previousSrc) {
+  const pool = normalFoods.filter(card => getCardImage(card) !== previousSrc);
+  const frames = [];
+  while (frames.length < 8 && pool.length) {
+    const index = Math.floor(Math.random() * pool.length);
+    const [card] = pool.splice(index, 1);
+    const img = new Image();
+    img.src = getCardImage(card);
+    frames.push(img.decode().then(() => img, () => null));
+  }
+  return frames;
+}
+
+let nextSpinFrames = prepareSpinFrames(document.getElementById('spinPhoto').getAttribute('src'));
+
+async function spinForFood() {
   if (isSpinning) return;
   isSpinning = true;
   totalSpins++;
@@ -1002,7 +1015,6 @@ function spinForFood() {
   toast.classList.remove('show');
   if (hint) hint.style.display = 'none';
 
-  btn.classList.add('spinning');
   btnLabel.textContent = '转转转...';
 
   const isEgg = Math.random() < 0.15;
@@ -1034,16 +1046,21 @@ function spinForFood() {
     eggResult._type = chosen.type;
   }
 
-  let cycleCount = 0;
-  const cycleInterval = setInterval(() => {
-    const cyclingCard = normalFoods[Math.floor(Math.random() * normalFoods.length)];
-    photo.src = getCardImage(cyclingCard);
-    cycleCount++;
-    if (cycleCount >= 16) { clearInterval(cycleInterval); finish(); }
-  }, 85);
+  // Each frame is decoded before its display time starts.
+  for (const frame of nextSpinFrames) {
+    let timeout;
+    const img = await Promise.race([
+      frame,
+      new Promise(resolve => { timeout = setTimeout(() => resolve(null), 450); })
+    ]);
+    clearTimeout(timeout);
+    if (!img) continue;
+    photo.src = img.src;
+    await new Promise(resolve => setTimeout(resolve, 175));
+  }
+  finish();
 
   function finish() {
-    btn.classList.remove('spinning');
 
     if (isEgg && eggResult) {
       const eggCard = allCards.find(c => c.id === 'egg_' + eggResult._type);
@@ -1079,6 +1096,7 @@ function spinForFood() {
     saveCollection();
     updateNavCounter();
     toast.classList.add('show');
+    nextSpinFrames = prepareSpinFrames(photo.getAttribute('src'));
     isSpinning = false;
   }
 }
