@@ -365,13 +365,20 @@
     border-radius: 14px;
     position: relative;
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: transform .2s ease-out, background-color .2s ease-out, box-shadow .2s ease-out;
     overflow: hidden;
-    background: var(--surface);
+    background: linear-gradient(145deg, rgba(255,210,120,.09), transparent 70%), var(--surface);
   }
-  .food-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    z-index: 10;
+  @media (hover: hover) and (pointer: fine) {
+    .card-stack:hover { z-index: 4; }
+    .card-stack:hover .food-card {
+      background-color: #352a30;
+      transform: translateY(-2px) scale(1.04);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card-stack:hover .food-card { transform: none; }
+    .food-card { transition: none; }
   }
   .food-card.locked {
     filter: grayscale(0.8) brightness(0.25);
