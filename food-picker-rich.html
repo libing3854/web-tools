@@ -100,17 +100,15 @@
     width: 185px; height: 185px; border-radius: 50%;
     border: 3px solid var(--accent);
     background: radial-gradient(circle at 40% 35%, var(--surface-light), var(--surface));
-    cursor: pointer; position: relative;
+    cursor: pointer; position: relative; padding: 0;
     transition: all 0.3s ease;
     box-shadow: 0 0 30px rgba(255,107,53,0.15), inset 0 0 30px rgba(255,107,53,0.05);
     outline: none;
     display: flex; align-items: center; justify-content: center; flex-direction: column;
     overflow: hidden;
   }
-  .spin-btn::before { content:''; position:absolute; inset:0; background-image:var(--spin-image, none); background-size:cover; background-position:center; opacity:.24; transform:scale(1.08); transition:opacity .35s ease, transform .6s ease; }
-  .spin-btn:hover::before { opacity:.38; transform:scale(1.16); }
-  .spin-btn .emoji-display, .spin-btn .btn-label { position:relative; z-index:2; }
-  .spin-btn .orbit-ring { z-index:2; }
+  .spin-btn img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
+  .spin-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
   .spin-btn:hover {
     transform: scale(1.05);
     border-color: var(--gold);
@@ -122,28 +120,7 @@
     border-color: var(--pink) !important;
     box-shadow: 0 0 60px rgba(255,77,109,0.35), inset 0 0 40px rgba(255,77,109,0.1) !important;
   }
-  .spin-btn .emoji-display {
-    font-size: 3.4rem; line-height: 1;
-    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
-  }
-  .spin-btn .btn-label {
-    font-family: 'ZCOOL KuaiLe', cursive;
-    font-size: 0.9rem; color: var(--text-muted);
-    margin-top: 8px; letter-spacing: 2px; transition: color 0.3s;
-  }
-  .spin-btn:hover .btn-label { color: var(--gold); }
-  .orbit-ring {
-    position: absolute; width: 220px; height: 220px; border-radius: 50%;
-    border: 1px dashed rgba(255,107,53,0.12);
-    animation: orbitSpin 25s linear infinite; pointer-events: none;
-  }
-  .orbit-dot {
-    position: absolute; width: 6px; height: 6px;
-    background: var(--accent); border-radius: 50%;
-    box-shadow: 0 0 8px var(--accent);
-  }
-  .orbit-dot:nth-child(1) { top: -3px; left: 50%; }
-  .orbit-dot:nth-child(2) { bottom: -3px; left: 50%; }
+  .spin-caption { margin-top: 10px; color: var(--text-muted); font-size: .9rem; }
 
   .result-area {
     text-align: center; min-height: 120px;
@@ -638,7 +615,6 @@
   @media (max-width: 480px) {
     .header h1 { font-size: 2.4rem; }
     .spin-btn { width: 155px; height: 155px; }
-    .spin-btn .emoji-display { font-size: 2.6rem; }
     .orbit-ring { width: 188px; height: 188px; }
     .result-food { font-size: 1.8rem; }
     .card-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
@@ -670,17 +646,16 @@
       <p class="subtitle">转转盘 · 收卡牌 · 战纠结</p>
     </div>
     <div class="main-action">
-      <button class="spin-btn" id="spinBtn" onclick="spinForFood()">
-        <div class="orbit-ring"><span class="orbit-dot"></span><span class="orbit-dot"></span></div>
-        <span class="emoji-display" id="btnEmoji">🍽️</span>
-        <span class="btn-label" id="btnLabel">点我决定</span>
+      <button class="spin-btn" id="spinBtn" aria-labelledby="btnLabel" onclick="spinForFood()">
+        <img id="spinPhoto" src="assets/food/photos/huangmenji.webp" alt="">
       </button>
+      <div class="spin-caption" id="btnLabel">点击图片抽取</div>
     </div>
     <div class="result-area">
       <div class="initial-hint" id="initialHint">每转一次，解锁一张美食卡牌</div>
       <div class="result-food" id="resultFood"></div>
       <div class="result-desc" id="resultDesc"></div>
-      <div class="new-card-toast" id="newCardToast" onclick="openCollection()">👛 已放入美食钱包，点击查看 →</div>
+      <div class="new-card-toast" id="newCardToast" onclick="openCollection()">已放入美食钱包，点击查看 →</div>
     </div>
     <div class="wallet-scene wallet-inline">
       <h2>美食钱包</h2>
@@ -1014,7 +989,7 @@ function spinForFood() {
   totalSpins++;
 
   const btn = document.getElementById('spinBtn');
-  const btnEmoji = document.getElementById('btnEmoji');
+  const photo = document.getElementById('spinPhoto');
   const btnLabel = document.getElementById('btnLabel');
   const hint = document.getElementById('initialHint');
   const resultFood = document.getElementById('resultFood');
@@ -1035,18 +1010,18 @@ function spinForFood() {
 
   if (isEgg) {
     const eggTypes = [
-      { type:'steal', banner:'steal-banner', bannerText:'🕵️ 偷吃他人外卖彩蛋！',
+      { type:'steal', banner:'steal-banner', bannerText:'偷吃他人外卖彩蛋！',
         results:[
           { emoji:'🕵️', title:'偷吃他人外卖', desc:'行动代号：饿狼传说。\n\n你悄悄观察起同事的午餐，\n良心正在疯狂敲门……' },
           { emoji:'🕵️', title:'偷吃他人外卖', desc:'外卖架上发现了目标：\n· 张总的奶茶\n· Lisa的沙拉\n· 某不知名同事的炸鸡\n\n但是，头顶有监控。' },
           { emoji:'🕵️', title:'偷吃他人外卖', desc:'你刚伸手拿起别人的外卖，\n失主就从电梯口出现了……\n\n现在放下还来得及。' },
         ]},
-      { type:'fasting', banner:'fasting-banner', bannerText:'🚫 今天不吃彩蛋！',
+      { type:'fasting', banner:'fasting-banner', bannerText:'今天不吃彩蛋！',
         results:[
           { emoji:'😱', title:'真的不吃？', desc:'你的胃正在写投诉信...\n\n「亲爱的主人，我抗议。」\n—— 你的胃' },
           { emoji:'💀', title:'人是铁饭是钢', desc:'99.9%说「今天不吃」的人，\n在3小时后打开了外卖APP。' },
         ]},
-      { type:'diet', banner:'diet-banner', bannerText:'🍰 今天放纵彩蛋！',
+      { type:'diet', banner:'diet-banner', bannerText:'今天放纵彩蛋！',
         results:[
           { emoji:'🍰', title:'今天放纵', desc:'今天不计算热量，\n炸鸡、甜品、奶茶都可以加入候选。\n\n认真奖励自己一顿吧。' },
           { emoji:'🎉', title:'今天放纵', desc:'本次用餐获得临时特权：\n· 不看卡路里\n· 不说下次一定\n· 快乐必须加倍\n\n明天再恢复自律。' },
@@ -1062,8 +1037,7 @@ function spinForFood() {
   let cycleCount = 0;
   const cycleInterval = setInterval(() => {
     const cyclingCard = normalFoods[Math.floor(Math.random() * normalFoods.length)];
-    btnEmoji.textContent = cyclingCard.emoji;
-    btn.style.setProperty('--spin-image', `url("${getCardImage(cyclingCard)}")`);
+    photo.src = getCardImage(cyclingCard);
     cycleCount++;
     if (cycleCount >= 16) { clearInterval(cycleInterval); finish(); }
   }, 85);
@@ -1072,14 +1046,13 @@ function spinForFood() {
     btn.classList.remove('spinning');
 
     if (isEgg && eggResult) {
-      btnEmoji.textContent = eggResult.emoji;
       const eggCard = allCards.find(c => c.id === 'egg_' + eggResult._type);
       if (eggCard) {
-        btn.style.setProperty('--spin-image', `url("${getCardImage(eggCard)}")`);
+        photo.src = getCardImage(eggCard);
       }
-      btnLabel.textContent = '彩蛋！';
+      btnLabel.textContent = '再转一次';
       btn.classList.add('egg-glow');
-      resultFood.textContent = eggResult.emoji + ' ' + eggResult.title;
+      resultFood.textContent = eggResult.title;
       resultFood.classList.add('show', 'egg-result');
       resultDesc.textContent = eggResult.desc;
       resultDesc.classList.add('show');
@@ -1093,10 +1066,9 @@ function spinForFood() {
       addCardToCollection('egg_' + eggResult._type);
     } else {
       const card = pickFoodCard();
-      btnEmoji.textContent = card.emoji;
-      btn.style.setProperty('--spin-image', `url("${getCardImage(card)}")`);
+      photo.src = getCardImage(card);
       btnLabel.textContent = '再转一次';
-      resultFood.textContent = card.emoji + ' ' + card.name;
+      resultFood.textContent = card.name;
       resultFood.classList.add('show');
       resultDesc.textContent = card.desc;
       resultDesc.classList.add('show');
@@ -1121,7 +1093,7 @@ function checkMythicUnlock() {
   const allCollected = normalIds.every(id => collection[id] && collection[id] > 0);
   if (allCollected && !collection['egg_mythic']) {
     collection['egg_mythic'] = 1;
-    showBanner('✨ 神话卡解锁：食神之选！', 'card-banner');
+    showBanner('神话卡解锁：食神之选！', 'card-banner');
     spawnConfetti();
   }
 }
